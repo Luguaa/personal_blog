@@ -28,9 +28,10 @@
 <body>
 
   <!-- Navigation -->
+
   <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
     <div class="container">
-      <a class="navbar-brand" href="{% url 'article:article_list' %}">Start Bootstrap</a>
+      <a class="navbar-brand" href="{% url 'article:index' %}">鹿瓜的个人博客</a>
       <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
         Menu
         <i class="fas fa-bars"></i>
@@ -38,13 +39,13 @@
       <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav ml-auto">
           <li class="nav-item">
-            <a class="nav-link" href="index.html">Home</a>
+            <a class="nav-link" href="{% url 'article:index' %}">首页</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="about.html">About</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="post.html">Sample Post</a>
+            <a class="nav-link" href="post.html">文章列表</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="contact.html">Contact</a>
@@ -53,16 +54,18 @@
       </div>
     </div>
   </nav>
+
   {% block header %}
   <!-- Page Header -->
-  <header class="masthead" style="background-image: url('{% static 'img/home-bg.jpg' %}')">
+  <header class="masthead" style="background-image: url('{% block background-image %}{% static 'img/home-bg.jpg' %}{% endblock background-image %}')">
     <div class="overlay"></div>
     <div class="container">
       <div class="row">
         <div class="col-lg-8 col-md-10 mx-auto">
           <div class="site-heading">
-            <h1>鹿瓜的个人博客</h1>
-            <span class="subheading">欢迎</span>
+
+            <h1>{% block banner_title %}鹿瓜的个人博客{% endblock %}</h1>
+            <span class="subheading">{% block banner_desc %}欢迎{% endblock %}</span>
           </div>
         </div>
       </div>
@@ -76,7 +79,7 @@
       <div class="col-lg-8 col-md-10 mx-auto">
           {% for article in hot_articles %}
         <div class="post-preview">
-          <a href="post.html">
+          <a href="{% url 'article:article_detail' article.id %}">
             <h2 class="post-title">
               {{ article.title }}
             </h2>
